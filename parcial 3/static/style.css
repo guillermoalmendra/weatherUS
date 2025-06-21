@@ -1,0 +1,136 @@
+/* Fondo por defecto */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #e6f0f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Fondo cuando lloverá */
+body.lluvioso {
+    background-color: #0d1a2b;
+    position: relative;
+    overflow: hidden;
+}
+
+body.lluvioso::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2YyY2R5M2Uwb3Roc2UybHpzM3A0ODZlcTBkdzd1cng4b2lzM2s5ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26AHMBTzc1qJgFfDW/giphy.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.25;
+    z-index: 0;
+}
+
+/* Fondo cuando no lloverá */
+body.soleado {
+    background: linear-gradient(to top, #ffecd2, #fcb69f);
+    position: relative;
+    overflow: hidden;
+}
+
+body.soleado::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    background-image: url("https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTg5Y3h1ZWt2OTNpNGlxbjJxcDF1dDczNThqeTFuNzJiazZweDB2YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/o7R0zQ62m8Nk4/giphy.gif"); /* Cambiar si deseas otro GIF */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+/* Contenedor central */
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+h2 {
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+    text-align: left;
+    color: #333;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    background-color: #f9fcff;
+    color: #333;
+    font-size: 15px;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333333;
+}
+
+/* Tabla explicativa */
+.explicacion-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.explicacion-tabla th,
+.explicacion-tabla td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.explicacion-tabla th {
+    background-color: #f2f2f2;
+    color: #333;
+}
