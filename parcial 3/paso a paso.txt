@@ -1,0 +1,100 @@
+para ejecutar el proyecto
+
+- creamos el entorno virtual, para eso vamos a la carpeta raiz  weatherUS\parcial 3
+- nos colocamos en el cmd, y ejecutamos la creación del entorno virtual
+                python -m venv venv
+
+- luego para activar el entorno virtual, a cmd nuevamente, y seguimos:
+   cd venv
+   cd scripts
+   activate  (deactivate  es para desactivar en el entorno virtual)
+
+tendria que verse algo asi     (venv) C:\prueba\weatherUS\parcial 3\venv\Scripts> 
+fijarme si esta el  (venv) ya que con esto sabemos que estamos en nuestro entorno virtual
+
+-luego vamos a la carpeta raiz con estos pasos:
+  
+  cd..
+  cd..
+- deberiamos haber llegado a la carpeta raiz que seria como esto (venv) C:\prueba\weatherUS\parcial 3> 
+
+-luego instalaremos las librerias necesarias que son 
+
+Flask==3.1.1
+joblib==1.5.1
+numpy==2.3.1
+pandas==2.3.0
+scikit-learn==1.7.0
+
+no debemos instalar una por una, en la carpeta raiz hay un .txt llamado  requirements.txt el  cual contiene las librerias
+necesarias para ejecutar la pagina.
+
+para instalar el txt necesitamos seguir estos pasos:
+
+- en teoria  estamos en cmd y en esta ruta  (venv) C:\prueba\weatherUS\parcial 3>  
+- vamos hacer lo siguiente
+
+pip install -r requirements.txt
+ 
+esperamos que se instalen las librerias, esto va a depende de tu internet.
+
+- para verificar las librerias utilizamos 
+  
+  pip list
+
+
+- para entrenar el modelo haremos lo siguiente, en la carpeta raiz del proyecto hay un .py llamado 
+   entrenar_modelo.py, este contiene todo lo necesario para entrenar el modelo (obviamente)
+   este se hará con el dataset de WeatherUS. 
+
+- para ejecutar esto es simple, estando en la ruta raiz del proyecto y en cmd  ej: C:\prueba\weatherUS\parcial 3 
+ - ejecutamos este codigo
+ 
+python entrenar_modelo.py
+
+- deberia verse algo asi en la consola
+
+(venv) C:\prueba\weatherUS\parcial 3>python entrenar_modelo.py
+📊 Reporte de clasificación:
+              precision    recall  f1-score   support
+
+           0       0.86      0.93      0.90     19423
+           1       0.67      0.47      0.56      5524
+
+    accuracy                           0.83     24947
+   macro avg       0.77      0.70      0.73     24947
+weighted avg       0.82      0.83      0.82     24947
+
+✅ Modelo guardado: models/best_model.pkl
+✅ Lista de variables guardada: models/feature_list.json
+
+
+¨--- ya creado el modelo, ejecutamos  app.py que esta en la carpeta raiz
+
+python app.py 
+
+luego accedemos a la pagina 
+
+ Running on http://127.0.0.1:5000 te dara algo asi en cmd, solo apretas el CTRL y click izquierdo y se abrirá tu navegador.
+
+
+ya estando en la pagina puedes probar distintas variables y saber si llueve o no, dejo algunos ejemplos
+
+
+ Ejemplos donde sí debería llover mañana (RainTomorrow = "Yes")
+Rainfall	Humidity3pm	Pressure3pm	MaxTemp	¿Llovió hoy?
+8.2	90.0	1002.5	22.0	1
+12.4	95.0	999.8	20.5	1
+6.0	88.0	1003.0	21.8	1
+4.2	86.0	1004.5	22.6	1
+15.1	93.0	1000.9	19.3	1
+
+
+
+Ejemplos donde no debería llover mañana (RainTomorrow = "No")
+Rainfall	Humidity3pm	Pressure3pm	MaxTemp	¿Llovió hoy?
+0.0	34.0	1018.9	30.1	0
+0.2	40.0	1016.7	31.0	0
+0.0	38.0	1017.5	29.4	0
+0.1	45.0	1015.3	32.5	0
+0.0	41.0	1019.2	33.6	0
