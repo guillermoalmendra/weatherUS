@@ -5,58 +5,59 @@
     <title>Predicción de Lluvia</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<body class="{{ fondo }}">
+<div class="container">
+    <h2>¿Lloverá mañana?</h2>
+
+    <!-- Formulario -->
+    <form action="/predict" method="post">
+        <label>Rainfall (mm):</label>
+        <input type="number" step="any" name="var1" placeholder="Ej: 2.4" required>
+
+        <label>Humidity 3 pm (%):</label>
+        <input type="number" step="any" name="var2" placeholder="Ej: 76.0" required>
+
+        <label>Pressure 3 pm (hPa):</label>
+        <input type="number" step="any" name="var3" placeholder="Ej: 1013.4" required>
+
+        <label>Max Temperature (°C):</label>
+        <input type="number" step="any" name="var4" placeholder="Ej: 25.6" required>
+
+        <label>¿Llovió hoy?</label>
+        <div class="choice-group">
+            <label><input type="radio" name="var5" value="1" required> Sí</label>
+            <label><input type="radio" name="var5" value="0" required checked> No</label>
+        </div>
+
+        <input type="submit" value="Predecir">
+    </form>
+
+    <!-- Cuadro de resultados -->
+    {% if cuadro_texto %}
+      <div class="prediction-box {{ fondo }}">
+          <div class="pred-header">
+              <span class="icon">{% if fondo == 'lluvioso' %}🌧️{% else %}☀️{% endif %}</span>
+              {{ cuadro_texto | safe }}
+          </div>
+          {{ tabla_html | safe }}
+      </div>
+    {% endif %}
+</div>
+
+<!-- Pegado rápido opcional -->
 <script>
-document.addEventListener('paste', function (e) {
+document.addEventListener('paste', e=>{
     e.preventDefault();
-    let pastedText = (e.clipboardData || window.clipboardData).getData('text');
-    
-    // Reemplaza comas por puntos (formato decimal correcto)
-    pastedText = pastedText.replace(/,/g, '.');
-
-    const valores = pastedText.trim().split(/\s+/);
-
-    if (valores.length === 5 && valores.every(v => !isNaN(parseFloat(v)))) {
-        const inputs = document.querySelectorAll('form input[type="number"]');
-        inputs.forEach((input, index) => {
-            input.value = valores[index];
-        });
+    let t=(e.clipboardData||window.clipboardData).getData('text').replace(/,/g,'.').trim();
+    const v=t.split(/\s+/);
+    if(v.length===5&&v.every(x=>!isNaN(parseFloat(x)))){
+        document.querySelectorAll('form input[type="number"]')
+                .forEach((el,i)=>el.value=v[i]);
+        const ch=v[4]>=0.5?'1':'0';
+        document.querySelectorAll('input[name="var5"]')
+                .forEach(r=>r.checked=(r.value===ch));
     }
 });
 </script>
-<body class="{{ fondo }}">
-    <div class="container">
-        <h2>¿Lloverá mañana?</h2>
-        <form action="/predict" method="post">
-            <label for="var1">Rainfall (mm):</label>
-            <input type="number" step="any" name="var1" required placeholder="Ej: 2.4">
-
-            <label for="var2">Humidity 3pm (%):</label>
-            <input type="number" step="any" name="var2" required placeholder="Ej: 76.0">
-
-            <label for="var3">Pressure 3pm (hPa):</label>
-            <input type="number" step="any" name="var3" required placeholder="Ej: 1013.4">
-
-            <label for="var4">Max Temperature (°C):</label>
-            <input type="number" step="any" name="var4" required placeholder="Ej: 25.6">
-
-            <label for="var5">¿Llovió hoy? (1 = Sí, 0 = No):</label>
-            <input type="number" min="0" max="1" name="var5" required placeholder="Ej: 1">
-
-            <input type="submit" value="Predecir">
-        </form>
-
-        {% if prediction_text %}
-            <div class="result">
-                <strong>{{ prediction_text }}</strong>
-            </div>
-        {% endif %}
-
-        {% if explicacion_text %}
-            <div class="result" style="margin-top: 20px;">
-                <p><strong>{% if fondo == 'lluvioso' %}🌧️{% else %}☀️{% endif %} Explicación del modelo:</strong></p>
-                {{ explicacion_text | safe }}
-            </div>
-        {% endif %}
-    </div>
 </body>
 </html>
